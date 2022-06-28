@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      troubleshooting: mongo
+  template:
+    metadata:
+      labels:
+        troubleshooting: mongo
+    spec:
+      containers:
+      - image: mongo:4.2
+        name: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  selector:
+    troubleshooting: mongo
+  ports:
+  - port: 27017

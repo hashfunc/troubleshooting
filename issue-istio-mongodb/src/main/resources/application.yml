@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo.troubleshooting.svc.cluster.local:27017
+      database: troubleshooting

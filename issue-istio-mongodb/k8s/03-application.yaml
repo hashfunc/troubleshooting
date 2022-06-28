@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      troubleshooting: application
+  template:
+    metadata:
+      labels:
+        troubleshooting: application
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - image: application:latest
+        name: application
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: application
+spec:
+  selector:
+    troubleshooting: application
+  ports:
+  - port: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: application
+spec:
+  hosts:
+  - "127.0.0.1"
+  gateways:
+  - "troubleshooting"
+  tcp:
+  - match:
+    - port: 80
+    route:
+    - destination:
+        host: application.troubleshooting.svc.cluster.local
+        port:
+          number: 8080
