@@ -7,3 +7,4 @@ resources:
 - 01-base.yaml
 - 02-mongo.yaml
 - 03-application.yaml
+- 04-envoy-filter.yaml
