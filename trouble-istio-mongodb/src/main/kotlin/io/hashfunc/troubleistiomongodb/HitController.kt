@@ -1,4 +1,4 @@
-package io.hashfunc.issueistiomongodb
+package io.hashfunc.troubleistiomongodb
 
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping

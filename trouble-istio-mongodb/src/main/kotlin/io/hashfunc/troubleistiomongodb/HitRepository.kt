@@ -1,4 +1,4 @@
-package io.hashfunc.issueistiomongodb
+package io.hashfunc.troubleistiomongodb
 
 import org.bson.types.ObjectId
 import org.springframework.data.mongodb.repository.MongoRepository

@@ -1,10 +1,10 @@
-package io.hashfunc.issueistiomongodb
+package io.hashfunc.troubleistiomongodb
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class IssueIstioMongodbApplicationTests {
+class TroubleIstioMongodbApplicationTests {
 
     @Test
     fun contextLoads() {
