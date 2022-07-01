@@ -1,5 +1,5 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo.troubleshooting.svc.cluster.local:27017
+      uri: mongodb://mongo.troubleshooting.svc.cluster.local:27017/?maxidletimems=10000
       database: troubleshooting
