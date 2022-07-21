@@ -51,6 +51,35 @@ annotations:
 mongodb://{MONGO_CONNECTION_STRING}/?maxIdleTimeMS=10000
 ```
 
+### 3. Envoy Filter 설정 조정 (TCP Proxy - idle_timeout)
+
+idle_timeout을 `0s`로 설정하면 idle_timeout을 비활성 할 수 있지만 TCP FIN 패킷 손실 등의 이유로 비정상적인 연결이 유지될 수 있음
+
+야간이 요청이 없어서 연결이 유지되지 않는 경우라면 idle_timeout을 길게 설정하여 연결이 끊기는 것을 방지할 수 있음
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: sidecar-timeout
+spec:
+  configPatches:
+  - applyTo: NETWORK_FILTER
+    match:
+      context: { SIDECAR_OUTBOUND | SIDECAR_INBOUND }
+      listener:
+        filterChain:
+          filter:
+            name: envoy.filters.network.tcp_proxy
+    patch:
+      operation: MERGE
+      value:
+        name: envoy.filters.network.tcp_proxy
+        typed_config:
+          '@type': type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+          idle_timeout: { IDLE_TIMEOUT }
+```
+
 ## 결과
 
 MongoDB에서는 해결 가능, DocumentDB에서도 해결 가능한지 테스트 필요
